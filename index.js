@@ -1,8 +1,8 @@
 'use strict';
 
-const download = require('./src/download');
-const torrentParser = require('./src/torrent-parser');
+const fs = require('fs');
+const bencode = require('bencode');
 
-const torrent = torrentParser.open(process.argv[2]);
+const torrent = bencode.decode(fs.readFileSync('puppy.torrent'));
 
-download(torrent, torrent.info.name);
+console.log(torrent.announce.toString('utf-8'));
